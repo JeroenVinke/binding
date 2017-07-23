@@ -3379,7 +3379,7 @@ export class DirtyChecker {
   }
 
   scheduleDirtyCheck() {
-    setTimeout(() => this.check(), this.checkDelay);
+    this.timeout = setTimeout(() => this.check(), this.checkDelay);
   }
 
   check() {
@@ -3397,6 +3397,11 @@ export class DirtyChecker {
     if (tracked.length) {
       this.scheduleDirtyCheck();
     }
+  }
+
+  destruct() {
+    clearTimeout(this.timeout);
+    this.tracked.splice(0);
   }
 }
 
